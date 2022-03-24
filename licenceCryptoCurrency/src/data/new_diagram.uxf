@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>10</y>
+      <w>840</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>data::CTransaction
+--
+-serialVersionUID = CSerializableSuper.serialVersionUID: long
+-algorithmSize = 512: int
+-transactionHashSize = 512: int
+-minTotalOutput = 0.01F: float
+-insAndOutsLimit = 5: int
+-fTransaction = null: CTransactionSignable
+-fSignatures = null: CTransactionSignature[]
+--
++CTransaction(float[] values, String[] aliases, byte[][] transactionsHashes, int[] outputs, byte[][] keysHashes, boolean isReward): ctor
++mGetInputs(): Map&lt;byte[], Integer&gt;
++mGetOutputsNumber(): int
++mVerifyTransaction(): boolean
++mGetTotalOutputValue(): float
++mGetTransactionDigest(): byte[]
++mKeyHashPayedValue(byte[] keyHash, float val): int
++mEquals(CTransaction tx): boolean
+-mVerifyInsAndOutsNumbers(): boolean
+-mVerifyTimestamp(): boolean
+-mVerifySignatures(): boolean
+-mSignTransaction(String[] aliases): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>860</x>
+      <y>10</y>
+      <w>890</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>data::CTransactionSignable
+--
+-serialVersionUID = CSerializableSuper.serialVersionUID: long
+-fInputs = null: CTransactionInput[]
+-fOutputs = null: CTransactionOutput[]
+-fTimeStamp: long
+--
++CTransactionSignable(float[] values, byte[][] keysHashes, String[] aliases, byte[][] transactionsHashes, int[] outputs, boolean isReward): ctor
++mGetOutputAtIndex(int index): CTransactionOutput
++mGetInputAtIndex(int index): CTransactionInput
++mInputsNumber(): int
++mOutputsNumber(): int
++mGetTimestamp(): long
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>400</y>
+      <w>500</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>data::CTransactionInput
+--
+-serialVersionUID = CSerializableSuper.serialVersionUID: long
+-fTransactionHash: byte[]
+-fOutputIndex: int
+-fPublicKey: PublicKey
+--
++CTransactionInput(byte[] transactionHash, int outputIndex, String alias): ctor
++getTransactionHash(): byte[]
++getOutputIndex(): int
++getPublicKey(): PublicKey
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>400</y>
+      <w>410</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>data::CTransactionOutput
+--
+-serialVersionUID = CSerializableSuper.serialVersionUID: long
+~fValue: float
+~fPublicKeyHash: byte[]
+--
++CTransactionOutput(float val, byte[] keyHash): ctor
++getValue(): float
++getPublicKeyHash(): byte[]
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>940</x>
+      <y>400</y>
+      <w>410</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>data::CTransactionSignature
+--
+-serialVersionUID = CSerializableSuper.serialVersionUID: long
+-fSignature = null: byte[]
+--
++getSignature(): byte[]
++setSignature(byte[] signature): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

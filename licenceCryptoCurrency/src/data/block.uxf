@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>10</y>
+      <w>680</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>data::CBlock
+--
+-serialVersionUID = CSerializableSuper.serialVersionUID: long
+-algSize = 512: int
+-hashTarget = 3: int
+-fBlockHeader = null: CBlockHeader
+-fTransactionList = null: CTransaction[]
+--
++CBlock(byte[] previousBlockHash, Vector&lt;byte[]&gt; transactionHashes, CTransaction[] transactionList): ctor
++mVerifyBlock(): boolean
+-mVerifyTransactions(): boolean
+-mVerifyHeaderHash(): boolean
++mGetHeaderHash(): byte[]
++mGetTransactionAtIndex(int index): CTransaction
++mGetTransactionListSize(): int
++mEquals(CBlock block): boolean
++mIsChildOf(byte[] parentHash): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>90</x>
+      <y>330</y>
+      <w>530</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>data::CBlockHeader
+--
+-serialVersionUID = CSerializableSuper.serialVersionUID: long
+-transactionsLimit = 100: int
+-fPreviousBlockHash = null: byte[]
+-fNoonce: long
+-fTimestamp: long
+-fTransactionHashes: Vector&lt;byte[]&gt;
+--
++CBlockHeader(byte[] previousBlockHash, Vector&lt;byte[]&gt; transactionHashes): ctor
++mVerifyTime(): boolean
++mVerifyTransactionsNumber(): boolean
++mIncrementNoonce(): void
++mGetParentHash(): byte[]
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

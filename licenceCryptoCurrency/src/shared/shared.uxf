@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>10</y>
+      <w>320</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>shared::CWalToMinData
+--
+-fInstance = null: CWalToMinData
+-fConfirmedTransactions = null: Vector&lt;CTuple&gt;
+-fCreditAddresses = null: Vector&lt;CCreditAddress&gt;
+-fAddressConfirmed = false: boolean
+-fAddressAdded = false: boolean
+--
+-CWalToMinData(): ctor
++mGetInstance(): CWalToMinData
++mIsAddressConfirmed(): void
++mIsAddressAdded(): boolean
++mAddConfirmedTransaction(CTuple cTx): void
++mGetConfirmedTransaction(): CTuple
++mAddAddress(CCreditAddress addr): void
++mGetAddressesList(): Vector&lt;CCreditAddress&gt;
++mRemoveCreditAdressAtIndex(int index): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>10</y>
+      <w>260</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>shared::CMinToNetBlockchain
+--
+-fBlock = null: CBlock
+-fProducerFinished = false: boolean
+-fConsumerActive = false: boolean
+-fInstance = null: CMinToNetBlockchain
+--
+-CMinToNetBlockchain(): ctor
++mGetInstance(): CMinToNetBlockchain
++mWriteBlock(CBlock block): void
++mReadBlock(): CBlock
++mSetConsumerActive(): void
++mUnsetConsumerActive(): void
++mWakeUpConsumers(): void
++mProdWaitForCons(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>10</y>
+      <w>350</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>shared::CMinToNetObject
+--
+~outObject = null: CMinToNetObject
+-fNetObj = null: CNetworkObject
+-fConsumerCount = 0: int
+-fDataIsRead = null: Map&lt;Thread, Boolean&gt;
+--
+-CMinToNetObject(): ctor
++mGetInstance(): CMinToNetObject
++mRegisterConsumerThread(Thread consumer): void
++mStartReading(): void
++mGetNetObj(): CNetworkObject
++mFinishReading(): void
++mWrite(CNetworkObject obj): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>310</y>
+      <w>270</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>shared::CNetToMinBlocks
+--
+-fBlocks = null: CGenericArray&lt;CBlock&gt;
+-fBlockAdded = false: boolean
+-fIncomingBlk = null: CNetToMinBlocks
+--
+-CNetToMinBlocks(): ctor
++mGetInstance(): CNetToMinBlocks
++mGetBlocks(): Vector&lt;CBlock&gt;
++mAddBlock(CBlock block): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>290</x>
+      <y>310</y>
+      <w>340</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>shared::CNetToMinTransactions
+--
+-fTransactions = null: CGenericArray&lt;CTransaction&gt;
+-fTransactionAdded = false: boolean
+-fIncomingTx = null: CNetToMinTransactions
+--
+-CNetToMinTransactions(): ctor
++mGetInstance(): CNetToMinTransactions
++mGetTransactions(): Vector&lt;CTransaction&gt;
++mAddTransaction(CTransaction transaction): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

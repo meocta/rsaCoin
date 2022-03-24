@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>10</y>
+      <w>490</w>
+      <h>480</h>
+    </coordinates>
+    <panel_attributes>miner::CMinerData
+--
+-minerData = null: CMinerData
+-fBlockChain = EBlockChainState.eUnknown: EBlockChainState
+-fNumberOfBlocks = 0: int
+-fUnspentTxOutputs = null: Map&lt;byte[], Vector&lt;Integer&gt;&gt;
+-fUnboundTransactions = null: Vector&lt;CTransaction&gt;
+-fOrphanBlocks = null: Vector&lt;CBlock&gt;
+--
+-CMinerData(): ctor
++mGetInstance(): CMinerData
++mSetBCState(EBlockChainState blockChain): void
++mGetBCState(): EBlockChainState
++mSetBlocksNumber(int number): void
++mIncrementBlocksNumber(): void
++mGetBlocksNumber(): int
++mSearchUnspentOutput(byte[] txHash, int outputNr): boolean
++mRemoveUnspentOutput(byte[] txHash, int outputNr): boolean
++mAddUnspentTransaction(byte[] txHash, Vector&lt;Integer&gt; txOutputs): void
++mAddTransactionList(Vector&lt;CTransaction&gt; txList): void
++mGetUnboundTxIndex(CTransaction tx): int
++mGetUnboundTransactionAtIndex(int index): CTransaction
++mGetUnboundTransactionsList(): Vector&lt;CTransaction&gt;
++mRemoveUnboundTransaction(CTransaction tx): boolean
++mRemoveUnboundTransaction(int index): boolean
++mGetUnboundTxListSize(): int
++mAddOrphanBlock(CBlock block): void
++mGetNextBlock(CBlock prevBlock): CBlock
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>510</x>
+      <y>10</y>
+      <w>310</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>miner::CBlockChain
+--
+-fInstance = null: CBlockChain
+-fBlockArrived = false: boolean
+-fTransactionArrived = false: boolean
+-fData = null: CMinerData
+-fCurrentBlock = null: CBlock
+--
+-CBlockChain(): ctor
++mGetInstance(): CBlockChain
++mGetCurrentBlock(): CBlock
++mAddBlock(CBlock block): void
++mGetBlockAtIndex(int blockNumber): CBlock
++mStartingBlockCreation(): void
++mFinishingBlockCreation(): boolean
++mAllowBlockCreation(): void
++mForbidBlockCreation(): void
++mNewTransactions(): void
++mNoNewTransactions(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>830</x>
+      <y>10</y>
+      <w>340</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>miner::CProcessBlocks
+--
+-fInstance = null: CProcessBlocks
+-fBlkList = null: CNetToMinBlocks
+-fData = null: CMinerData
+-fMNObject = null: CMinToNetObject
+-fBlockChain = null: CBlockChain
+-fWalToMin = null: CWalToMinData
+--
+-CProcessBlocks(): ctor
++mGetInstance(): CProcessBlocks
+-mWriteBlockToDisc(CBlock block): void
+-mCheckForWalletAddress(CTransaction tx): void
+-mVerifyRewardTransaction(CBlock block): boolean
+-mVerifyTxList(CBlock block): boolean
+-mVerifyBlock(CBlock block): boolean
++run(): void
++mStartThread(): Thread
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>500</y>
+      <w>350</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>miner::CCreateBlock
+--
+-fInstance = null: CCreateBlock
+-fBC = null: CBlockChain
+-fData = null: CMinerData
+-fNTMB = null: CNetToMinBlocks
+-fWalToMin = null: CWalToMinData
+--
+-CCreateBlock(): ctor
++mGetInstance(): CCreateBlock
+-mGetRandAlias(): String
+~mGetRewardTransaction(String alias): CTransaction
+-mCreateBlock(CTransaction rewardTx): CBlock
+-mAcceptThisBlock(CBlock block): void
++run(): void
++mStartThread(): Thread
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>370</x>
+      <y>500</y>
+      <w>290</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>miner::CMiner
+--
+-fBlockCreator = null: CCreateBlock
+-fBlockProcessor = null: CProcessBlocks
+-fTxProcessor = null: CProcessTransactions
+-fBlockSender = null: CSendBlockchain
+-fData = null: CMinerData
+-fInstance = null: CMiner
+--
+-CMiner(): ctor
++mGetInstance(): CMiner
+-mGetBCSize(): int
+-mStartWorkers(): void
++run(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>670</x>
+      <y>500</y>
+      <w>310</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>miner::CProcessTransactions
+--
+-fInstance = null: CProcessTransactions
+-fMNObject = null: CMinToNetObject
+-fTxList = null: CNetToMinTransactions
+-fData = null: CMinerData
+-fBC = null: CBlockChain
+--
+-CProcessTransactions(): ctor
++mGetInstance(): CProcessTransactions
+-mVerifyTransaction(CTransaction tx): boolean
++run(): void
++mStartThread(): Thread
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>990</x>
+      <y>500</y>
+      <w>260</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>miner::CSendBlockchain
+--
+-fInstance = null: CSendBlockchain
+-fBC = null: CBlockChain
+-fMTNBC = null: CMinToNetBlockchain
+-fData = null: CMinerData
+--
+-CSendBlockchain(): ctor
++mGetInstance(): CSendBlockchain
++run(): void
++mStartThread(): Thread
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

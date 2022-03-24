@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>10</y>
+      <w>330</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>network::CNetworkData
+--
+-networkData = null: CNetworkData
++fNetworkServer = null: Thread
++fNetworkClientsIn = null: Vector&lt;Thread&gt;
++fNetworkClientsOut = null: Vector&lt;Thread&gt;
++fNetworkBaseClientsIn = null: Vector&lt;Thread&gt;
++fNetworkBaseClientsOut = null: Vector&lt;Thread&gt;
++fIpListInitiatedConnections = null: Vector&lt;String&gt;
++fIpRegularNodeList = null: Vector&lt;String&gt;
+-isIpRegNodeListComplete = false: boolean
+--
+-CNetworkData(): ctor
++setIpListFlag(): void
++getIpListFlag(): boolean
++mDataValid(): boolean
++mGetNetworkDataSingleton(): CNetworkData
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>350</x>
+      <y>10</y>
+      <w>510</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>network::CNetwork
+--
+-networkSingletonInstance = null: CNetwork
+-nodeData = null: CMinerData
+-networkData = null: CNetworkData
+-fBaseNodeIp = null: String
+--
+-CNetwork(): ctor
++mGetInstance(): CNetwork
+-mStartServer(): void
+-mCreateOutConnection(String remoteIP, EConnectionState conState): Thread
+-mBaseNodeConnect(): void
+-mGetConnectionToBase(): Thread
+-mConnectToPeers(Thread baseConnection): void
+-mJoinWorkers(Vector&lt;Thread&gt; workers): void
++run(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>870</x>
+      <y>10</y>
+      <w>540</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>network::CWorkerServer
+--
+-threadSleepTime = 3000: int
+-fServerSocket = null: ServerSocket
+-fData = null: CNetworkData
+-fServerIsAlive = false: boolean
+--
++CWorkerServer(): ctor
+-mIsIpBase(String ip): boolean
+-mGetConnectionType(String incomingIP): EConnectionType
+-mCreateConnectionForDuplex(String incomingIp, EConnectionType conType): void
+-mProcessConnection(String incomingIp, Thread workerThread): void
++mServerAlive(): boolean
++mStopServer(): void
++run(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>310</y>
+      <w>550</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>network::CClientIncoming
+--
+-fInBlocks = null: CNetToMinBlocks
+-fInTransactions = null: CNetToMinTransactions
+--
++CClientIncoming(Socket client, EConnectionType conType): ctor
+-mCreateOutConnection(String remoteIP, EConnectionState conState): Thread
+-mProcessEList(ObjectOutputStream outStream): boolean
+-mProcessEFirst(ObjectOutputStream outStream): void
+-mProcessENormal(ObjectInputStream inStream): void
+~mProcessClient(ObjectInputStream inStream, ObjectOutputStream outStream): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>310</y>
+      <w>460</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>/network::CWorkerClient/
+--
+#clientSocket = null: Socket
+#connectioType = EConnectionType.eUnknown: EConnectionType
+#fNetworkData = null: CNetworkData
+#fNodeData = null: CMinerData
+--
++CWorkerClient(Socket client, EConnectionType conType): ctor
+~mProcessClient(ObjectInputStream in, ObjectOutputStream out): void
++mStartThread(): Thread
++run(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1040</x>
+      <y>310</y>
+      <w>590</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>network::CClientOutgoing
+--
+-fConState = null: EConnectionState
+-fOutObj = null: CMinToNetObject
+--
++CClientOutgoing(Socket client, EConnectionType conType, EConnectionState cState): ctor
+-mDownloadPeerList(ObjectOutputStream outStream, ObjectInputStream inStream): void
+-mDownloadBlockChain(ObjectOutputStream outStream, ObjectInputStream inStream): void
+-mSendBlocksToPeer(ObjectOutputStream outStream): void
+~mProcessClient(ObjectInputStream inStream, ObjectOutputStream outStream): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
