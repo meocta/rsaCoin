@@ -5,7 +5,7 @@ import java.io.File;
 public class CConfiguration
 {
 	//base node ip list
-	static final public String[] ipBaseNodesList = {"192.168.0.105", "192.168.0.103"};
+	static final public String[] ipBaseNodesList = {"192.168.0.105", "192.168.0.106"};
 	//number of base nodes
 	static final public int numberOfBaseNodes = 1;
 	//number of allowed regular connections
@@ -25,7 +25,7 @@ public class CConfiguration
 
 	// path to the coin's folder
 	static final public String coinFolder		= System.getProperty("user.home") + File.separator + "RSAC" ;
-	static final public String walletFolder		= CConfiguration.coinFolder + File.separator + "wallet";// + File.separator;
+	static final public String walletFolder		= CConfiguration.coinFolder + File.separator + "wallet" + File.separator;
 	static final public String blockchainFolder = CConfiguration.coinFolder + File.separator + "Blockchain" + File.separator;
 	static final public String keyFolder		= CConfiguration.coinFolder + File.separator + "Keys" + File.separator;
 }
