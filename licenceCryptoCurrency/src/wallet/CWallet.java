@@ -1,6 +1,7 @@
 package wallet;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -64,7 +65,7 @@ public class CWallet implements Runnable
 			// only 2 outputs for now
 			byte[][] keysHashes = new byte[ 2 ][ CCryptoSunrsasign.keyHashSize ];
 			// first output pays to the other node
-			keysHashes[ 0 ] = addr.getBytes();
+			keysHashes[ 0 ] = Base64.getDecoder().decode(addr.getBytes()) ;
 			// second pays to self the rest 
 			keysHashes[ 1 ] = txList.lastElement().mGetHashKey();	
 			
@@ -91,7 +92,7 @@ public class CWallet implements Runnable
 		byte[] keyHash = CCryptoSunrsasign.getKeyHashFromAlias( alias );
 		// print the pub key to which the sum will be payed
 		System.out.println( " following is the public key hash " );
-		System.out.println( Arrays.toString( keyHash ) );
+		System.out.println( Base64.getEncoder().encodeToString( keyHash ) );
 		// add address to list of expected payments so miner would check upon it
 		CCreditAddress addr = new CCreditAddress( alias, sum );
 		fWTMD.mAddAddress( addr );		
