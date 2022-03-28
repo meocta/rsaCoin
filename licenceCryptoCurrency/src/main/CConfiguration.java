@@ -5,7 +5,7 @@ import java.io.File;
 public class CConfiguration
 {
 	//base node ip list
-	static final public String[] ipBaseNodesList = {"192.168.0.105", "192.168.0.106"};
+	static final public String[] ipBaseNodesList = {"192.168.0.105"};
 	//number of base nodes
 	static final public int numberOfBaseNodes = 1;
 	//number of allowed regular connections
