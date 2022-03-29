@@ -117,15 +117,17 @@ public class CWallet implements Runnable
 
 					System.out.println( "write the sum payed to this address" );
 					sum = inputScanner.nextFloat();
+					inputScanner.nextLine(); // consume the rest of the line
 					
 					mPayToAddress( sum, address );
 					break;
 				case "expect":
 					System.out.println( "write the sum to be received" );
 					sum = inputScanner.nextFloat();
+					inputScanner.nextLine(); // consume the rest of the line
 					
 					System.out.println( "write the alias associated with this address" );
-					String alias = inputScanner.nextLine(); 
+					String alias = inputScanner.nextLine();
 					
 					System.out.println( "following is the address to receive the payment:" );
 					mAddressToBePayedTo( sum, alias );
