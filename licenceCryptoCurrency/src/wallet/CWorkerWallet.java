@@ -28,8 +28,9 @@ public class CWorkerWallet implements Runnable
 	
 	public Thread mStartThread()
 	{
-		Thread worker = new Thread( this );		
+		Thread worker = new Thread( this, "WorkerWallet_thread" );
 		worker.start();		
+		System.out.println("WorkerWallet_thread created");
 		return worker;
 	}
 

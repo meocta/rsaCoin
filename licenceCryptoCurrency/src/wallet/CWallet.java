@@ -1,6 +1,5 @@
 package wallet;
 
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Scanner;
 import java.util.Vector;
@@ -72,7 +71,7 @@ public class CWallet implements Runnable
 			tx = new CTransaction(values, aliases, txHashes, outputs, keysHashes, false);	
 		}else{
 			System.out.println( " not enough credit for the payment: " + fData.mGetCredit() );
-		}		
+		}
 		return tx;
 	}
 	
