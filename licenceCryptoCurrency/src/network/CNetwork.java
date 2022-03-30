@@ -35,15 +35,16 @@ public class CNetwork implements Runnable
 	}
 	
 	/*
-	 * waiting for incoming connections from peers
+	 * waiting for incoming connection requests from peers
 	 * creates incoming connection threads
 	 * if there is none, creates outgoing connection threads for this peer
 	 * if base node, it listens for all queries, both from other bases and from regulars
 	 */
 	private void mStartServer()
 	{
-		networkData.fNetworkServer = new Thread( new CWorkerServer() );
+		networkData.fNetworkServer = new Thread( new CWorkerServer(), "WorkerServer_thread" );
 		networkData.fNetworkServer .start();
+		System.out.println("WorkerServer_thread created");
 	}
 	
 	private Thread mCreateOutConnection(String remoteIP, EConnectionState conState )
