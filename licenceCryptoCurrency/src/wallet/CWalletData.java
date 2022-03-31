@@ -24,7 +24,7 @@ public class CWalletData
 	
 	@SuppressWarnings("unchecked")
 	private CWalletData()
-	{	
+	{
 		fPersTuple		= new File( CConfiguration.walletFolder, "tuple.pers" );			
 		fPersCredit		= new File( CConfiguration.walletFolder, "credit.pers" );
 		

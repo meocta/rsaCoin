@@ -64,9 +64,11 @@ public class CClientIncoming extends CWorkerClient
 				fNetworkData.fIpRegularNodeList.remove( 0 );
 				// keep this connection
 				fNetworkData.fNetworkClientsIn.addElement( Thread.currentThread() );
+				
 				String remoteIp = clientSocket.getInetAddress().getHostAddress();
 				//create an outgoing pair connection
 				Thread outCon = mCreateOutConnection( remoteIp, EConnectionState.eNormal );
+				
 				fNetworkData.fNetworkBaseClientsOut.addElement( outCon );
 				//save this ip in the list of ips of regular nodes
 				fNetworkData.fIpRegularNodeList.addElement( remoteIp );
@@ -119,7 +121,7 @@ public class CClientIncoming extends CWorkerClient
 			//read continuous flow of blocks and transactions from peer node
 			CNetworkObject netObj = ( CNetworkObject )inStream.readObject();
 			
-			if( EObjectType.eBlock == netObj.mGetType() )			{
+			if( EObjectType.eBlock == netObj.mGetType() ){
 				CBlock block = ( CBlock )netObj.mGetObject();									
 				fInBlocks.mAddBlock( block );
 			}else{ // EObjectType.eTransaction
