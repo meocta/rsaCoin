@@ -206,9 +206,8 @@ class CProcessBlocks implements Runnable
 	public Thread mStartThread()
 	{
 		CProcessBlocks procBlk = mGetInstance();
-		Thread thread = new Thread( procBlk, "ProcessBlocks_thread" );		
-		thread.start();
-		System.out.println("ProcesBlocks_thread created");
+		Thread thread = new Thread( procBlk );		
+		thread.start();		
 		return thread;
 	}
 }

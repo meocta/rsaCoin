@@ -59,17 +59,13 @@ public class CMain
 	}
 
 	public void mStartAndJoinNodeThreads(){
-		Thread miner   = new Thread( fMiner, "Miner_thread" );
-		Thread network = new Thread( fNetwork, "Network_thread" );
-		Thread wallet  = new Thread( fWallet, "Wallet_thread" );
+		Thread miner   = new Thread( fMiner );
+		Thread network = new Thread( fNetwork );
+		Thread wallet  = new Thread( fWallet );
 		
 		miner.start();
 		network.start();
 		wallet.start();
-		
-		System.out.println("Miner_thread created");
-		System.out.println("Network_thread created");
-		System.out.println("wallet_thread created");
 		
 		try{
 			miner.join();

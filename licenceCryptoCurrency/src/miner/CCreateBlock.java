@@ -109,9 +109,8 @@ public class CCreateBlock implements Runnable
 
 	public Thread mStartThread()
 	{
-		Thread thread = new Thread( fInstance, "CreateBlock_thread" );		
-		thread.start();
-		System.out.println("CreateBlock_thread created");
+		Thread thread = new Thread( fInstance );		
+		thread.start();		
 		return thread;
 	}
 }

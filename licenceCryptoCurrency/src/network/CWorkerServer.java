@@ -184,11 +184,11 @@ public class CWorkerServer implements Runnable
 			String incomingIP = inClientSocket.getInetAddress().getHostAddress();
 			EConnectionType connectionType = mGetConnectionType( incomingIP );
 
-			CClientIncoming inConnection = new CClientIncoming( inClientSocket, connectionType );
-			Thread workerThread = inConnection.mStartThread();
+			CWorkerClient inConnection = new CClientIncoming( inClientSocket, connectionType );
+			Thread workerThread = new Thread( inConnection );
 			
 			System.out.println( "remove1" );
-			workerThread.start();
+			workerThread.start();			
 			
 			mProcessConnection( incomingIP, workerThread );
 			

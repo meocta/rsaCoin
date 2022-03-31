@@ -58,7 +58,7 @@ public class CGenesys
 	private CGenesys()
 	{
 		fBC = CBlockChain.mGetInstance();
-		fWD = CWalletData.mGetInstance();
+		fWD = CWalletData.mGetInstance();		
 		
 		String alias = "firstTransaction";			
 		CTransaction rewardTx = mGetRewardTransaction( alias );		

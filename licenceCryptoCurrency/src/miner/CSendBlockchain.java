@@ -46,9 +46,8 @@ class CSendBlockchain implements Runnable
 	public Thread mStartThread()
 	{
 		CSendBlockchain blockchain = mGetInstance();
-		Thread thread = new Thread( blockchain, "SendBlockchain_thread" );		
-		thread.start();
-		System.out.println("SendBlockchain_thread created");
+		Thread thread = new Thread( blockchain );		
+		thread.start();		
 		return thread;
 	}
 }

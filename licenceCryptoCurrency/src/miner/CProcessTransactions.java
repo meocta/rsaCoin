@@ -106,9 +106,8 @@ class CProcessTransactions implements Runnable
 	public Thread mStartThread()
 	{
 		CProcessTransactions procTxs = mGetInstance();
-		Thread thread = new Thread( procTxs, "ProcessTransactions_thread" );
+		Thread thread = new Thread( procTxs );
 		thread.start();
-		System.out.println("ProcessTansaction_thread created");
 		return thread;
 	}
 }
