@@ -34,7 +34,8 @@ public abstract class CWorkerClient implements Runnable
 	
 	public Thread mStartThread()
 	{
-		Thread thread = new Thread( this, "WorkerClient" + nr + "_thread" );		
+		Thread thread = new Thread( this, "WorkerClient" + nr + "_thread" );
+		nr++;
 		thread.start();
 		System.out.println("Worker_thread created");
 		return thread;
