@@ -187,9 +187,6 @@ public class CWorkerServer implements Runnable
 			CClientIncoming inConnection = new CClientIncoming( inClientSocket, connectionType );
 			Thread workerThread = inConnection.mStartThread();
 			
-			System.out.println( "remove1" );
-			workerThread.start();
-			
 			mProcessConnection( incomingIP, workerThread );
 			
 			if( fData.fNetworkBaseClientsOut.size() == CConfiguration.numberOfRegularConnections ){
