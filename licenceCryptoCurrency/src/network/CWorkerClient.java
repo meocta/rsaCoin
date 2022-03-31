@@ -17,7 +17,7 @@ public abstract class CWorkerClient implements Runnable
 	protected CNetworkData fNetworkData = null;
 	protected CMinerData   fNodeData    = null;
 	
-	private int nr = 0;
+	static private int nr = 0;
 	
 	/*
 	 * main activity of the client
