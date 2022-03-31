@@ -71,14 +71,19 @@ public class CNetworkData
 		}		
 		return status;
 	}
-	
+	//same code goes for base nodes and regular
+	@SuppressWarnings("unused")
 	public boolean mDataValid()
 	{
-		if( ( fNetworkClientsIn.size() == fNetworkClientsOut.size() )&& 
-			( fNetworkBaseClientsIn.size() == fNetworkBaseClientsOut.size() ) )
-		{
-			return true;
+		boolean status = false;
+		if ( fNetworkClientsIn.size() == fNetworkClientsOut.size() ){
+			status = true;
 		}
-		return false;
+		if(( CConfiguration.isBaseNode ) &&
+		   ( fNetworkBaseClientsIn.size() != fNetworkBaseClientsOut.size()))
+		{
+			status = false;
+		}
+		return status;
 	}	
 }
