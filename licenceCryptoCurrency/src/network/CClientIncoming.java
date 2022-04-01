@@ -55,7 +55,7 @@ public class CClientIncoming extends CWorkerClient
 	private boolean mProcessEList( ObjectOutputStream outStream ) throws IOException
 	{
 		boolean repeat = true;
-		//valid only for base nodes
+		//valid only for base nodes, the call comes from regular only
 		if( CConfiguration.isBaseNode ){
 			if( CConfiguration.numberOfRegularConnections > fNetworkData.fNetworkClientsIn.size() ){
 				//send the ip list of peers, including this base node

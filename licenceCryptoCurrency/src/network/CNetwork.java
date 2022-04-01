@@ -78,13 +78,14 @@ public class CNetwork implements Runnable
 				continue;
 			}else{
 				//initialize connection
+				networkData.fIpListInitiatedConnections.addElement( baseIP );
 				Thread worker = mCreateOutConnection( baseIP, conState );
 				if( null == worker ){
+					networkData.fIpListInitiatedConnections.removeElement(baseIP);
 					System.out.println("CNetwork.mBaseNodeConnect(), connection to" + baseIP + " failed ");
 				}else{
 					System.out.println("CNetwork.mBaseNodeConnect(), connection to" + baseIP + " succeded ");
 					conState = EConnectionState.eNormal;					
-					networkData.fIpListInitiatedConnections.addElement( baseIP );
 					networkData.fNetworkBaseClientsOut.addElement( worker );
 				}				
 			}

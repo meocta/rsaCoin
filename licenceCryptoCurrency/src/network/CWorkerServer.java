@@ -126,13 +126,14 @@ public class CWorkerServer implements Runnable
 				}
 				break;
 			case eRegularToBase:
-				fData.fIpRegularNodeList.addElement( incomingIp );
-				//incoming connection from regular to base already established, complete the duplex
-				if( fData.fNetworkClientsOut.size() < CConfiguration.numberOfRegularConnections ){
-					//add this thread to the list of known connection threads
-					fData.fNetworkClientsIn.addElement( workerThread );
-					mCreateConnectionForDuplex( incomingIp, conType );				
-				}
+				//already taken care in CClientIncoming::mProcessEList()
+//				fData.fIpRegularNodeList.addElement( incomingIp );
+//				//incoming connection from regular to base already established, complete the duplex
+//				if( fData.fNetworkClientsOut.size() < CConfiguration.numberOfRegularConnections ){
+//					//add this thread to the list of known connection threads
+//					fData.fNetworkClientsIn.addElement( workerThread );
+//					mCreateConnectionForDuplex( incomingIp, conType );				
+//				}
 				break;
 			case eRegularToRegular:
 				//create the outgoing connection to complete the duplex connection
