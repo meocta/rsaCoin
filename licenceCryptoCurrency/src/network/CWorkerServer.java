@@ -14,7 +14,6 @@ public class CWorkerServer implements Runnable
 	private int threadSleepTime = 3000;
 	private ServerSocket	fServerSocket 	= null;
 	private CNetworkData	fData 			= null;
-	private boolean			fServerIsAlive	= false;
 	
 	/*
 	 * constructor
@@ -25,7 +24,6 @@ public class CWorkerServer implements Runnable
 			InetAddress bindAddr = InetAddress.getByName( CConfiguration.localNodeIP );			
 			fServerSocket = new ServerSocket( CConfiguration.serverPort, CConfiguration.backlog, bindAddr );	
 			fData = CNetworkData.mGetNetworkDataSingleton();
-			fServerIsAlive = true;
 		}catch( IOException e){
 			e.printStackTrace();
 		}
@@ -154,28 +152,13 @@ public class CWorkerServer implements Runnable
 		}
 	}
 	
-	public synchronized boolean mServerAlive()
-	{
-		return fServerIsAlive;
-	}
-	
-	public synchronized void mStopServer()
-	{
-		fServerIsAlive = false;
-		try{
-			fServerSocket.close();
-		}catch( IOException e ){
-			e.printStackTrace();
-		}
-	}
-	
 	@Override
 	public void run()
 	{
 		//client socket used for incoming messages from other nodes
 		Socket inClientSocket = null;
 		
-		while( mServerAlive() ){
+		while( true ){
 			try{
 				inClientSocket = fServerSocket.accept();
 			}catch( IOException e ){
@@ -188,11 +171,6 @@ public class CWorkerServer implements Runnable
 			Thread workerThread = inConnection.mStartThread();
 			
 			mProcessConnection( incomingIP, workerThread );
-			
-			if( fData.fNetworkBaseClientsOut.size() == CConfiguration.numberOfRegularConnections ){
-				mStopServer();
-				//todo: don't stop the server here, just let it wait for a connection to terminate
-			}
 		}
 	}
 }
