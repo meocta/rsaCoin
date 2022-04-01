@@ -103,7 +103,8 @@ public class CNetwork implements Runnable
 				//if connection was unsuccessful, try other nodes
 				continue;
 			}else{
-				fBaseNodeIp = baseIP;				
+				fBaseNodeIp = baseIP;
+				networkData.fIpListInitiatedConnections.addElement( baseIP );
 				//once a connection is established with a base node, terminate
 				break;
 			}
