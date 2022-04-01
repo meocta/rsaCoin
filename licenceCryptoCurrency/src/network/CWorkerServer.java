@@ -86,12 +86,12 @@ public class CWorkerServer implements Runnable
 	
 	private void mProcessConnection( String incomingIp, Thread workerThread )
 	{
-		try{
-			// give a chance to initiated connections to establish
-			Thread.sleep( threadSleepTime );
-		}catch( InterruptedException e ){
-			e.printStackTrace();
-		}		
+//		try{
+//			// give a chance to initiated connections to establish
+//			Thread.sleep( threadSleepTime );
+//		}catch( InterruptedException e ){
+//			e.printStackTrace();
+//		}		
 		EConnectionType conType = mGetConnectionType( incomingIp );
 		boolean initiated = false;
 		//check the list of initiated connections to know if we need to create the outgoing conn
