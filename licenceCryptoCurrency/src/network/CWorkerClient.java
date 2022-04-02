@@ -44,14 +44,12 @@ public abstract class CWorkerClient implements Runnable
 	@Override
 	public void run()
 	{
-		System.out.println("CWorkerClient.run(), remove , before");
 		try(OutputStream output = clientSocket.getOutputStream();
 			ObjectOutputStream outStream = new ObjectOutputStream( output );
 			InputStream input = clientSocket.getInputStream();
 			ObjectInputStream inStream = new ObjectInputStream( input ))
 		
 		{
-			System.out.println("CWorkerClient.run(), remove, after");
 			mProcessClient( inStream, outStream );
 		}catch( Exception e ){
 			e.printStackTrace();
