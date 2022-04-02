@@ -11,7 +11,7 @@ import states.EConnectionType;
 
 public class CWorkerServer implements Runnable
 {	
-	private int threadSleepTime = 3000;
+//	private int threadSleepTime = 3000;
 	private ServerSocket	fServerSocket 	= null;
 	private CNetworkData	fData 			= null;
 	

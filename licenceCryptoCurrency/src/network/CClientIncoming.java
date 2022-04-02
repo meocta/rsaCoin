@@ -27,6 +27,8 @@ public class CClientIncoming extends CWorkerClient
 	private CNetToMinBlocks fInBlocks= null;
 	private CNetToMinTransactions fInTransactions = null;
 	
+	private int threadSleepTime = 3000;
+	
 	public CClientIncoming( Socket client, EConnectionType conType )
 	{
 		super(client, conType);
@@ -143,6 +145,12 @@ public class CClientIncoming extends CWorkerClient
 				EBlockChainState.eHalf  == fNodeData.mGetBCState() )
 			{
 				System.out.println( "blockchain downloading, ignoring incoming messages" );
+				try{
+					// give a chance to initiated connections to establish
+					Thread.sleep( threadSleepTime );
+				}catch( InterruptedException e ){
+					e.printStackTrace();
+				}
 			}else{
 				//process incoming objects
 				try{

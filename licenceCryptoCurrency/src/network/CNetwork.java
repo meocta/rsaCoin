@@ -24,6 +24,10 @@ public class CNetwork implements Runnable
 	{
 		nodeData = CMinerData.mGetInstance();
 		networkData = CNetworkData.mGetNetworkDataSingleton();
+		//set only for the origin node
+		if( CConfiguration.firstNode ){
+			nodeData.mSetBCState( EBlockChainState.eFull );			
+		}
 	}
 	
 	static public CNetwork mGetInstance()
