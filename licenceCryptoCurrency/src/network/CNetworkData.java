@@ -47,7 +47,7 @@ public class CNetworkData
 		return networkData;
 	}
 	
-	public void setIpListFlag()
+	synchronized public void setIpListFlag()
 	{
 		if( ! CConfiguration.isBaseNode ){
 			isIpRegNodeListComplete = true;

@@ -101,9 +101,9 @@ public class CWorkerServer implements Runnable
 				break;
 			}
 		}		
-		if( ! fData.mDataValid() ){
-			System.err.println( "not all connections are duplex" );
-		}		
+//		if( ! fData.mDataValid() ){
+//			System.err.println( "not all connections are duplex" );
+//		}		
 		switch( conType )
 		{
 			case eBaseToBase:
