@@ -71,7 +71,7 @@ public class CBlockChain
 	
 	public CBlock mGetBlockAtIndex( int blockNumber )
 	{
-		if( blockNumber > fData.mGetBlocksNumber() || blockNumber < 0 ){
+		if( blockNumber > fData.mGetBlocksNumber() || blockNumber <= 0 ){
 			System.err.println( "block index out of range" );
 		}else{
 			try{

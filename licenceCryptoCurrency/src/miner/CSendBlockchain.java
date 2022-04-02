@@ -35,7 +35,7 @@ class CSendBlockchain implements Runnable
 			
 			//todo: first block should be embedded
 			//the blockchain can increase continually while we read blocks
-			for( int i = 0; i <= fData.mGetBlocksNumber(); i++ ){
+			for( int i = 1; i <= fData.mGetBlocksNumber(); i++ ){
 				CBlock block = fBC.mGetBlockAtIndex( i );
 				fMTNBC.mWriteBlock( block );
 			}
