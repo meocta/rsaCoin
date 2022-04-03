@@ -6,23 +6,28 @@ import java.util.Vector;
 
 import cryptography.CCryptoSunrsasign;
 import cryptography.CHelper;
+import miner.CMinerData;
+import states.EBlockChainState;
 
 public class CBlock extends CSerializableSuper 
 {
 	private static final long serialVersionUID = CSerializableSuper.serialVersionUID;	
-	private static final int algSize = 512;	
-	private static final int hashTarget = 3; // represents the number of zeroes the block hash has to start with
+	private static final int  algSize = 512;	
+	private static final int  hashTarget = 3; // represents the number of zeroes the block hash has to start with
 	
 	//todo: add block number in blockchain
-	private CBlockHeader fBlockHeader = null;
-	private CTransaction[] fTransactionList = null;
+	private		CBlockHeader	fBlockHeader		= null;
+	private 	CTransaction[]	fTransactionList	= null;
+	protected 	CMinerData		fNodeData			= null;
 	
 	public CBlock( byte[] previousBlockHash, Vector< byte[] > transactionHashes, CTransaction[] transactionList )
 	{
 		fTransactionList = transactionList;
-		fBlockHeader = new CBlockHeader( previousBlockHash, transactionHashes );		
+		fBlockHeader = new CBlockHeader( previousBlockHash, transactionHashes );	
+		fNodeData = CMinerData.mGetInstance();
 		long time1 = System.currentTimeMillis();//remove		
 		int u = 0;
+		
 		//search for a noonce so that the header hash meets the target
 		while( true ){
 			System.out.println("CBlock.CBlock()" + u++);//remove
@@ -62,14 +67,18 @@ public class CBlock extends CSerializableSuper
 	 */
 	public boolean mVerifyBlock()
 	{
+		boolean status = false;
 		if( fBlockHeader.mVerifyTransactionsNumber() &&
-			fBlockHeader.mVerifyTime() &&
-			mVerifyHeaderHash() &&
-			mVerifyTransactions() )
+			mVerifyHeaderHash() )
 		{
-			return true;
+			status = true;
 		}
-		return false;
+		if(fNodeData.mGetBCState() == EBlockChainState.eFull &&
+			fBlockHeader.mVerifyTime() == false )
+		{
+			status = false;
+		}
+		return status;
 	}
 	
 	/* private members */
