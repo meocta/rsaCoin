@@ -7,11 +7,13 @@ import java.util.Map;
 
 import cryptography.CCryptoSunrsasign;
 import cryptography.CHelper;
+import miner.CMinerData;
 /* a transaction has a list of inputs, which are outputs to other unspent transactions,
  * a timestamp,
  * a list of signed transaction hashes corresponding to all the input transactions,
  * a list of outputs, consisting of a value and a public key hash(256)
  */
+import states.EBlockChainState;
 public class CTransaction extends CSerializableSuper{
 	private static final long	serialVersionUID	= CSerializableSuper.serialVersionUID;
 	private static final int	algorithmSize		= 512;
@@ -147,10 +149,24 @@ public class CTransaction extends CSerializableSuper{
 	}
 	
 	/*
+	 * return the blockchain state of the system
+	 */
+	private EBlockChainState mGetBCState() {
+		CMinerData miner = CMinerData.mGetInstance();
+		return miner.mGetBCState();
+	}
+	
+	/*
 	 * checks if timestamp is not more than one hour in the future of a day old
 	 */
 	private boolean mVerifyTimestamp(){		
-		long currentTime = System.currentTimeMillis() * 1000;		
+		long currentTime = System.currentTimeMillis() * 1000;
+		
+		//blockchain is downloading
+		if(EBlockChainState.eFull != mGetBCState()) {
+			return true;
+		}
+		
 		if( ( fTransaction.mGetTimestamp() < currentTime + 3600 ) &&
 			( fTransaction.mGetTimestamp() > currentTime - 86400 ) )
 		{

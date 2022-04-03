@@ -102,6 +102,7 @@ public class CClientOutgoing extends CWorkerClient
 			switch( fConState )
 			{
 				case eList:
+					System.out.println("elist --------------");
 					mDownloadPeerList( outStream, inStream );
 					
 					//check if first element is base ip
@@ -117,10 +118,12 @@ public class CClientOutgoing extends CWorkerClient
 					}
 					break;
 				case eFirst:
+					System.out.println("efirst --------------");
 					mDownloadBlockChain( outStream, inStream );
 					fConState = EConnectionState.eNormal;
 					break;
 				case eNormal:
+					System.out.println("enormal --------------");
 					// normal handling of traffic
 					outStream.writeObject( fConState );
 					//registration to the shared object used to load transactions and blocks from CMiner and send them over the network

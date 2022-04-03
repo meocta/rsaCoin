@@ -69,7 +69,8 @@ public class CBlock extends CSerializableSuper
 	{
 		boolean status = false;
 		if( fBlockHeader.mVerifyTransactionsNumber() &&
-			mVerifyHeaderHash() )
+			mVerifyHeaderHash() &&
+			mVerifyTransactions() )
 		{
 			status = true;
 		}
@@ -88,7 +89,8 @@ public class CBlock extends CSerializableSuper
 	 */
 	private boolean mVerifyTransactions()
 	{
-		for( int index = 0; index < fTransactionList.length; index++){
+		//reward transaction is checked later
+		for( int index = 1; index < fTransactionList.length; index++){
 			//todo: add verification for hash list to match the transaction list
 			if( ! fTransactionList[ index ].mVerifyTransaction() ){
 				System.out.println( "transaction verification failed at: " + index );
