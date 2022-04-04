@@ -6,8 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Vector;
 
 import data.CBlock;
+import data.CTuple;
 import main.CConfiguration;
 
 public class CBlockChain
@@ -20,13 +22,28 @@ public class CBlockChain
 	private CMinerData fData = null;
 	//last block in the blockchain
 	private CBlock fCurrentBlock = null;
+	private File fNoOfBlocks = null;
 	
 	private CBlockChain()
 	{
 		fData = CMinerData.mGetInstance();		
-		File blockChainFolder = new File( CConfiguration.blockchainFolder );
-		if( ! blockChainFolder.exists()){
-			blockChainFolder.mkdir();			
+		fNoOfBlocks = new File( CConfiguration.blockchainFolder + "blocksNumber" );
+		try {
+			if( fNoOfBlocks.createNewFile() ) {
+				fData.mSetBlocksNumber(0);
+			} else {
+				try( FileInputStream fis   	= new FileInputStream( fNoOfBlocks );
+					 ObjectInputStream ois 	= new ObjectInputStream( fis ); )
+				{
+					int bNumber = ( int )ois.readInt();
+					fData.mSetBlocksNumber(bNumber);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+		} catch( NullPointerException | IOException e ){
+			e.printStackTrace();
 		}
 	}
 	
@@ -43,6 +60,20 @@ public class CBlockChain
 		return fCurrentBlock;
 	}
 	
+	public void mSetCurrentBlock(CBlock current)
+	{
+		fCurrentBlock = current;
+		fData.mIncrementBlocksNumber();
+
+		try( FileOutputStream fos   	= new FileOutputStream( fNoOfBlocks );
+			 ObjectOutputStream oos 	= new ObjectOutputStream( fos ); )
+		{
+			oos.writeInt( fData.mGetBlocksNumber() );
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/*
 	 * write block to file.
 	 * the name of the file is the height of the block in the blockchain.
@@ -50,8 +81,7 @@ public class CBlockChain
 	 */
 	public synchronized void mAddBlock( CBlock block )
 	{
-		fCurrentBlock = block;
-		fData.mIncrementBlocksNumber();
+		mSetCurrentBlock(block);
 		
 		try{ 
 			File blockFile = new File( CConfiguration.blockchainFolder + fData.mGetBlocksNumber() + ".block" );			

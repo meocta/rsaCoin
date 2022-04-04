@@ -160,18 +160,20 @@ class CProcessBlocks implements Runnable
 			return false;
 		}
 		CBlock currentBlock = fBlockChain.mGetCurrentBlock();
-		//check for duplicates, if blocks are equal then this is a duplicate, do nothing with it further
-		if( true == currentBlock.mEquals( block )) {
-			return false;
-		}
-		//check if hash pointer points to the blockchain
-		try{
-			if( false == block.mIsChildOf( currentBlock.mGetHeaderHash())) {
+		if( null != currentBlock ) {
+			//check for duplicates, if blocks are equal then this is a duplicate, do nothing with it further
+			if( true == currentBlock.mEquals( block )) {
 				return false;
 			}
-		}catch( NoSuchAlgorithmException e ){
-			e.printStackTrace();
-			return false;
+			//check if hash pointer points to the blockchain
+			try{
+				if( false == block.mIsChildOf( currentBlock.mGetHeaderHash())) {
+					return false;
+				}
+			}catch( NoSuchAlgorithmException e ){
+				e.printStackTrace();
+				return false;
+			}
 		}
 		//check the list of transactions if they comply with all the rules
 		if( false == mVerifyTxList( block ) ) {

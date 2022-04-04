@@ -18,13 +18,11 @@ public class CBlock extends CSerializableSuper
 	//todo: add block number in blockchain
 	private		CBlockHeader	fBlockHeader		= null;
 	private 	CTransaction[]	fTransactionList	= null;
-	protected 	CMinerData		fNodeData			= null;
 	
 	public CBlock( byte[] previousBlockHash, Vector< byte[] > transactionHashes, CTransaction[] transactionList )
 	{
 		fTransactionList = transactionList;
 		fBlockHeader = new CBlockHeader( previousBlockHash, transactionHashes );	
-		fNodeData = CMinerData.mGetInstance();
 		long time1 = System.currentTimeMillis();//remove		
 		int u = 0;
 		
@@ -74,7 +72,7 @@ public class CBlock extends CSerializableSuper
 		{
 			status = true;
 		}
-		if(fNodeData.mGetBCState() == EBlockChainState.eFull &&
+		if(CMinerData.mGetInstance().mGetBCState() == EBlockChainState.eFull &&
 			fBlockHeader.mVerifyTime() == false )
 		{
 			status = false;
