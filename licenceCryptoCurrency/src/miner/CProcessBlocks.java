@@ -83,7 +83,8 @@ class CProcessBlocks implements Runnable
 	private boolean mVerifyRewardTransaction( CBlock block )
 	{		
 		CTransaction tx = block.mGetTransactionAtIndex( 0 );
-		return ( CConfiguration.rewardValue == tx.mGetTotalOutputValue() );
+		float txVal = tx.mGetTotalOutputValue();
+		return ( 0 == Float.compare( CConfiguration.rewardValue, tx.mGetTotalOutputValue() ) );
 	}
 	
 	/*
@@ -96,7 +97,10 @@ class CProcessBlocks implements Runnable
 	{
 		int nTxs = block.mGetTransactionListSize();
 		Vector< Integer > unboundIndexes = new Vector<>();
-		if( false == mVerifyRewardTransaction( block ) || 1 == nTxs ) {
+		
+		if( (false == mVerifyRewardTransaction( block )) ||
+			(1 == nTxs && fData.mGetBlocksNumber()>0 ))
+		{
 			return false;
 		}
 		// check from the second transaction in the list
