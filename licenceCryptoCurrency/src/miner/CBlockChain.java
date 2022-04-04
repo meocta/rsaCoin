@@ -22,7 +22,6 @@ public class CBlockChain
 	private CMinerData fData = null;
 	//last block in the blockchain
 	private CBlock fCurrentBlock = null;
-	private File fNoOfBlocks = null;
 	
 	private CBlockChain()
 	{
@@ -46,14 +45,6 @@ public class CBlockChain
 	{
 		fCurrentBlock = current;
 		fData.mIncrementBlocksNumber();
-
-		try( FileOutputStream fos   	= new FileOutputStream( fNoOfBlocks );
-			 ObjectOutputStream oos 	= new ObjectOutputStream( fos ); )
-		{
-			oos.writeInt( fData.mGetBlocksNumber() );
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	/*
