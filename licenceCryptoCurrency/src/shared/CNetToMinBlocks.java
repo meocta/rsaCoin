@@ -26,6 +26,11 @@ public class CNetToMinBlocks
 		}
 		return fIncomingBlk;
 	}
+	
+	public boolean mIsNewBlockAvailable()
+	{
+		return fBlockAdded;
+	}
 
 	/*
 	 * only the reader should block on this object

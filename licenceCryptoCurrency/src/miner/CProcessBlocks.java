@@ -192,6 +192,9 @@ class CProcessBlocks implements Runnable
 	{
 		while( true ){			
 			//thread waits here until data is produced in fTxList object
+			if( false == fBlkList.mIsNewBlockAvailable() ) {
+				fData.mSetBCState( EBlockChainState.eFull );
+			}
 			Vector< CBlock > blkList = fBlkList.mGetBlocks();
 			//cancel block creation that is in progress
 			fBlockChain.mCancelBlockCreation();
