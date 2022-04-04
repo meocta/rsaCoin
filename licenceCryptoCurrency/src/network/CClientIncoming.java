@@ -166,6 +166,7 @@ public class CClientIncoming extends CWorkerClient
 							mProcessEFirst( outStream );
 							break;
 						case eNormal:
+							System.out.println("enormal -----------------");
 							//once we get here, we stay until the connection breaks 
 							mProcessENormal( inStream );
 							break;

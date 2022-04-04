@@ -31,6 +31,14 @@ public class CBlockChain
 		try {
 			if( fNoOfBlocks.createNewFile() ) {
 				fData.mSetBlocksNumber(0);
+				
+				try( FileOutputStream fos   	= new FileOutputStream( fNoOfBlocks );
+					 ObjectOutputStream oos 	= new ObjectOutputStream( fos ); )
+				{
+					oos.writeInt(0);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 			} else {
 				try( FileInputStream fis   	= new FileInputStream( fNoOfBlocks );
 					 ObjectInputStream ois 	= new ObjectInputStream( fis ); )
