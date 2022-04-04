@@ -1,5 +1,6 @@
 package miner;
 
+import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Vector;
 
 import data.CBlock;
 import data.CTransaction;
+import main.CConfiguration;
 import states.EBlockChainState;
 
 public class CMinerData
@@ -29,6 +31,16 @@ public class CMinerData
 		fUnspentTxOutputs = new HashMap<>();
 		fUnboundTransactions = new Vector<>();
 		fOrphanBlocks = new Vector<>();
+		
+		File bcFolder = new File( CConfiguration.blockchainFolder );
+		//count the number of files within the folder. no other files than blocks are there
+		
+		fNumberOfBlocks = bcFolder.listFiles().length;
+		if( 0 < fNumberOfBlocks ){
+			mSetBCState( EBlockChainState.eHalf );
+		}else{
+			mSetBCState( EBlockChainState.eEmpty );
+		}
 	}
 	
 	static public CMinerData mGetInstance()
@@ -39,19 +51,14 @@ public class CMinerData
 		return minerData;
 	}
 	
-	public synchronized void mSetBCState( EBlockChainState blockChain )
+	public synchronized void mSetBCState( EBlockChainState bcState )
 	{
-		fBlockChain = blockChain;
+		fBlockChain = bcState;
 	}
 	
 	public synchronized EBlockChainState mGetBCState()
 	{
 		return fBlockChain;
-	}
-	
-	public synchronized void mSetBlocksNumber( int number )
-	{
-		fNumberOfBlocks = number;
 	}
 	
 	public synchronized void mIncrementBlocksNumber()

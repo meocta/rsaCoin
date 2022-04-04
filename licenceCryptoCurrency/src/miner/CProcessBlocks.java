@@ -14,6 +14,7 @@ import main.CConfiguration;
 import shared.CMinToNetObject;
 import shared.CNetToMinBlocks;
 import shared.CWalToMinData;
+import states.EBlockChainState;
 import states.EObjectType;
 
 /*
@@ -197,15 +198,19 @@ class CProcessBlocks implements Runnable
 			for( CBlock block : blkList ){
 				if( true == mVerifyBlock( block ) ){
 					mWriteBlockToDisc( block );
-					//write block so CNetwork can read it and send it away
-					CNetworkObject obj = new CNetworkObject( block, EObjectType.eBlock ); 
-					fMNObject.mWrite( obj );
+					if( fData.mGetBCState() == EBlockChainState.eFull ) {
+						//write block so CNetwork can read it and send it away
+						CNetworkObject obj = new CNetworkObject( block, EObjectType.eBlock ); 
+						fMNObject.mWrite( obj );						
+					}
 				}else{
 					//reject block
 				}
 			}
-			//allow block creation to start
-			fBlockChain.mAllowBlockCreation();
+			if( fData.mGetBCState() == EBlockChainState.eFull ) {
+				//allow block creation to start
+				fBlockChain.mAllowBlockCreation();				
+			}
 		}
 	}
 	

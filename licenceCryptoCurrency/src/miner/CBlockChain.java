@@ -26,33 +26,7 @@ public class CBlockChain
 	
 	private CBlockChain()
 	{
-		fData = CMinerData.mGetInstance();		
-		fNoOfBlocks = new File( CConfiguration.blockchainFolder + "blocksNumber" );
-		try {
-			if( fNoOfBlocks.createNewFile() ) {
-				fData.mSetBlocksNumber(0);
-				
-				try( FileOutputStream fos   	= new FileOutputStream( fNoOfBlocks );
-					 ObjectOutputStream oos 	= new ObjectOutputStream( fos ); )
-				{
-					oos.writeInt(0);
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-			} else {
-				try( FileInputStream fis   	= new FileInputStream( fNoOfBlocks );
-					 ObjectInputStream ois 	= new ObjectInputStream( fis ); )
-				{
-					int bNumber = ( int )ois.readInt();
-					fData.mSetBlocksNumber(bNumber);
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-			
-		} catch( NullPointerException | IOException e ){
-			e.printStackTrace();
-		}
+		fData = CMinerData.mGetInstance();
 	}
 	
 	static public CBlockChain mGetInstance()
