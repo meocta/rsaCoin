@@ -70,7 +70,6 @@ public class CWorkerServer implements Runnable
 		try{
 			InetAddress address = InetAddress.getByName( incomingIp );
 			InetAddress bindAddr = InetAddress.getByName( CConfiguration.localNodeIP );
-			System.out.println("remove"  +  bindAddr.toString() + "  "+ CConfiguration.clientPort + ""   + address.toString() + "  "  );
 			Socket socket = new Socket( address, 
 					CConfiguration.serverPort, 
 					bindAddr, 
@@ -85,13 +84,7 @@ public class CWorkerServer implements Runnable
 	}
 	
 	private void mProcessConnection( String incomingIp, Thread workerThread )
-	{
-//		try{
-//			// give a chance to initiated connections to establish
-//			Thread.sleep( threadSleepTime );
-//		}catch( InterruptedException e ){
-//			e.printStackTrace();
-//		}		
+	{		
 		EConnectionType conType = mGetConnectionType( incomingIp );
 		boolean initiated = false;
 		//check the list of initiated connections to know if we need to create the outgoing conn
@@ -100,10 +93,7 @@ public class CWorkerServer implements Runnable
 				initiated = true;
 				break;
 			}
-		}		
-//		if( ! fData.mDataValid() ){
-//			System.err.println( "not all connections are duplex" );
-//		}		
+		}	
 		switch( conType )
 		{
 			case eBaseToBase:
@@ -126,14 +116,6 @@ public class CWorkerServer implements Runnable
 				}
 				break;
 			case eRegularToBase:
-				//already taken care in CClientIncoming::mProcessEList()
-//				fData.fIpRegularNodeList.addElement( incomingIp );
-//				//incoming connection from regular to base already established, complete the duplex
-//				if( fData.fNetworkClientsOut.size() < CConfiguration.numberOfRegularConnections ){
-//					//add this thread to the list of known connection threads
-//					fData.fNetworkClientsIn.addElement( workerThread );
-//					mCreateConnectionForDuplex( incomingIp, conType );				
-//				}
 				break;
 			case eRegularToRegular:
 				//create the outgoing connection to complete the duplex connection

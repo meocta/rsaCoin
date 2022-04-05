@@ -23,12 +23,9 @@ public class CBlock extends CSerializableSuper
 	{
 		fTransactionList = transactionList;
 		fBlockHeader = new CBlockHeader( previousBlockHash, transactionHashes );	
-		long time1 = System.currentTimeMillis();//remove		
-		int u = 0;
 		
 		//search for a noonce so that the header hash meets the target
 		while( true ){
-			System.out.println("CBlock.CBlock()" + u++);//remove
 			byte[] serializedHeader = CHelper.mGetByteFromSerial( fBlockHeader );
 			try{
 				byte[] headerHash = CCryptoSunrsasign.mMessageDigest( algSize, serializedHeader );
@@ -44,9 +41,6 @@ public class CBlock extends CSerializableSuper
 				// for the header hash to meet the target, the first hashTarget positions need to be zero
 				if( checkTarget == true ){
 					System.out.println( "block header found" );
-					CHelper.mPrintByteArray( headerHash );//remove
-					long time2 = System.currentTimeMillis();//remove
-					System.out.println( (time2 - time1)/1000 );//remove
 					break;
 				} else {
 					fBlockHeader.mIncrementNoonce();

@@ -136,8 +136,6 @@ public class CClientIncoming extends CWorkerClient
 	@Override
 	void mProcessClient( ObjectInputStream inStream, ObjectOutputStream outStream ) throws IOException
 	{
-		System.out.println( "remove" );
-
 		boolean repeat = true;
 		
 		while( repeat ){

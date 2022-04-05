@@ -265,17 +265,4 @@ public class CCryptoSunrsasign {
 			e.printStackTrace();
 		}
 	}
-
-	////////////////////////////////////////////////////////////////////
-
-	public static void main(String[] args) // todo: remove
-	{
-		String test = "aleluiah";
-
-		byte[] sgn = mSignRSADS( test.getBytes(), "test", 384);
-
-		System.out.println( key.getPublic().toString() );
-
-		System.out.println( mVerifyRSADS(test.getBytes(), sgn, key.getPublic(), 384 ) );		
-	}
 }
